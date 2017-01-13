@@ -120,7 +120,7 @@ void ExecFunction (string func, string meta) {
         
         art = h.FindInBlock(hardCodedBlock, id); // bloco do 1200
         
-        if (art.GetId() > 0) {
+        if (art.GetId() == id) {
             art.Print();
         } else {
             // isso nunca deve ser exibido para o usuário
