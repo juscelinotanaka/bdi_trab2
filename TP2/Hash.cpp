@@ -41,7 +41,7 @@ Hash::Hash(string fileName) {
         }
     }
     
-    cout << "ARQUIVO HASH PRONTO." << endl;
+    cout << "ARQUIVO HASH PRONTO." << endl << endl;
 }
 
 void Hash::CloseHash () {
@@ -186,7 +186,7 @@ Artigo Hash::FindInBlock(long block, int id) {
     // posiciona no bloco desejado
     fseek(arquivoHash, block, SEEK_SET);
     
-    // Lê o primeiro bloco do bucket.
+    // Lê o bloco do bucket.
     fread(bloco, 1, TAMANHO_BLOCO, arquivoHash);
     
     // Vetor de artigos para armazenar os registros lidos em 1 bloco.

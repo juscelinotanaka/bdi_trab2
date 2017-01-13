@@ -151,6 +151,7 @@ void LoopMenu () {
         << "4 - SEEK 2" << endl
         << "-----------------------" << endl
         << "0 - SAIR" << endl
+        << "-----------------------" << endl
         << "OPCAO: "
         ;
         
@@ -190,8 +191,6 @@ void LoopMenu () {
 }
 
 int main(int argc, const char * argv[]) {
-    
-    
     if (argc == 3) {
         ExecFunction(argv[1], argv[2]);
     } else {
