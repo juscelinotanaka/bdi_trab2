@@ -108,6 +108,7 @@ void LoopMenu () {
         << "4 - SEEK 2" << endl
         << "-----------------------" << endl
         << "0 - SAIR" << endl
+        << "OPCAO: "
         ;
         
         cin >> opcao;
