@@ -12,7 +12,7 @@ EXEC = bdi
 CPPFILES = main.cpp Artigo.cpp Hash.cpp
 
 all: $(CPPFILES)
-	$(CC) $(CFLAGS) -o $(EXEC) $(CPPFILES)
+	$(CC) $(CFLAGS) -o $(EXEC) $(CPPFILES) -std=c++11
 
 run:
 	./$(EXEC)

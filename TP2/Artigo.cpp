@@ -8,6 +8,7 @@
 
 #include "Artigo.hpp"
 #include <sstream>
+#include <cstring>
 
 Artigo::Artigo () {
     
