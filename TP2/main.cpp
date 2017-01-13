@@ -72,6 +72,12 @@ void ExecFunction (string func, string meta) {
                 
                 long bloco = h.InserirArtigo(art);
                 
+                //TODO: o par <id, bloco> deve ser inserido na b-tree.
+                //TODO: No caso do seek2 seria o par <titulo, bloco>.
+                
+                // A busca será feita no Hash pelo Bloco + chave conforme exemplo mais embaixo.
+                
+                //USADO PARA DEBUG E TESTAR A BUSCA POR BLOCO - REMOVER DEPOIS
                 if (id == 1 || id == 1200)
                     cout << "bloco de " << id << " : " << bloco << endl << endl;
                 
