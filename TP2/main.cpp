@@ -13,10 +13,18 @@
 #include <unistd.h>
 #include "Artigo.hpp"
 #include "Hash.hpp"
+#include <limits>
 
 using namespace std;
 
 Hash h("hash_file.txt");
+
+
+void WaitForEnter () {
+    cout << endl << "PRESSIONE ENTER PARA CONTINUAR...";
+    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+}
 
 void ExecFunction (string func, string meta) {
     if (func.compare("upload") == 0) {
@@ -37,7 +45,7 @@ void ExecFunction (string func, string meta) {
         
         int count = 0;
         
-        int cLess = 0, cMore = 0;
+        int cLess = 0, cMore = 0, repetido = 0;
         
         while ( getline (iFile,line) )
         {
@@ -62,16 +70,23 @@ void ExecFunction (string func, string meta) {
                 
                 Artigo art(id, titulo, ano, citacoes, atualizacao, autores, snippet);
                 
-                if (art.GetId() == 1 || art.GetId() == 1200) {
-                    cout << "ATUALI: " << atualizacao << " : " << parts[5] << endl;
-                    art.Print();
-                }
+                long bloco = h.InserirArtigo(art);
                 
-                h.InserirArtigo(art);
+                if (id == 1 || id == 1200)
+                    cout << "bloco de " << id << " : " << bloco << endl << endl;
+                
+                if (bloco == -2L) {
+                    cout << "JA EXISTE UM ARTIGO COM ESTE ID: " << art.GetId() << endl;
+                    count--;
+                    repetido++;
+                }
             }
         }
         
-        cout << "more: " << cMore << " less: " << cLess << " inseridos: " << count << endl;
+        cout << "Mais: " << cMore << endl
+        << "Menos: " << cLess << endl
+        << "Inseridos: " << count << endl
+        << "Repetidos: " << repetido << endl;
         
     } else if (func.compare("findrec") == 0) {
         int id = atoi(meta.c_str());
@@ -84,12 +99,40 @@ void ExecFunction (string func, string meta) {
             cout << "NAO FOI POSSIVEL ENCONTRAR O REGISTRO: " << id << "." << endl;
         }
     } else if (func.compare("seek1") == 0) {
+        Artigo art;
+        int id = atoi(meta.c_str());
         
+        // SUBSTITUIR A PARTIR DAQUI
+        //TODO: buscar na B-tree o id informado e pegar de la o numero do bloco (que foi salvo na b-tree durante a insercao)
+        long hardCodedBlock = 1;
+        switch (id) {
+            case 1:
+                hardCodedBlock = 409600;
+                break;
+            case 1200:
+                hardCodedBlock = 491520000;
+                break;
+            default:
+                break;
+        }
+        
+        // DEVE SER SUBSTITUIDO ATE AQUI - e trocar o hardcodedblock a seguir pelo valor do bloco que a b-tree retornou
+        
+        art = h.FindInBlock(hardCodedBlock, id); // bloco do 1200
+        
+        if (art.GetId() > 0) {
+            art.Print();
+        } else {
+            // isso nunca deve ser exibido para o usuário
+            cout << "O REGISTRO NAO FOI ENCONTRADO OU NAO EXISTE NO BLOCO INDICADO" << endl;
+        }
     } else if (func.compare("seek2") == 0) {
         
     } else {
         cout << "funcao invalida" << endl;
     }
+    
+    WaitForEnter();
 
 }
 

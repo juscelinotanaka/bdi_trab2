@@ -28,8 +28,9 @@ private:
 public:
     Hash(string fileName);
     void CloseHash ();
-    int InserirArtigo (Artigo artigo);
+    long InserirArtigo (Artigo artigo);
     Artigo FindRec(int id);
+    Artigo FindInBlock(long bloco, int id);
 };
 
 #endif /* Hash_hpp */

@@ -54,12 +54,14 @@ int calculaChave (int id){
     return (id % (NUMERO_BUCKETS));
 }
 
+//TODO: FAZER RETORNAR O NUMERO EXATO DO BUCKET
+
 // Função para inserção dos artigos no arquivo de hash
-void inserirArtigo(int chave, Artigo artigo){
+long inserirArtigo(int chave, Artigo artigo){
     
     int i, j, achouEspacoLivre = 0;
     
-//    arquivoHash = fopen("hash_file.txt", "rb+");
+    long pos = -1L;
     
     // Ponteiro para leitura do bloco.
     void *bloco = NULL;
@@ -75,7 +77,7 @@ void inserirArtigo(int chave, Artigo artigo){
     // Loop para caminhar nos blocos de um bucket.
     for (i = 0; i < BLOCOS_POR_BUCKET; i++) {
         
-        // Lê o primeiro bloco do bucket.
+        // Lê o bloco do bucket.
         fread(bloco, 1, TAMANHO_BLOCO, arquivoHash);
         
         // Copia os registros do bloco lido para um vetor de artigos.
@@ -83,47 +85,38 @@ void inserirArtigo(int chave, Artigo artigo){
         
         // Loop para caminhar nos registros de um bloco e achar um bloco vazio
         for (j = 0; j < REGISTROS_POR_BLOCO; j++) {
-            
             if (artigos[j].GetId() == artigo.GetId()) {
-                cout << "JA EXISTE UM ARTIGO COM ESTE ID: " << artigo.GetId() << endl;
-                return;
+                return -2L;
             }
-            //se id == 0 entao espaco ta vazio
-            if (artigos[j].GetId() == 0) {
+            else if (artigos[j].GetId() == 0) {
+                //se id == 0 entao espaco ta vazio
                 achouEspacoLivre = 1;
                 
                 artigos[j] = artigo;
                 memcpy(bloco, artigos, sizeof(Artigo) * REGISTROS_POR_BLOCO);
                 
                 fseek(arquivoHash, -TAMANHO_BLOCO, SEEK_CUR);
+                
+                pos = ftell(arquivoHash);
+                
                 fwrite(bloco, 1, TAMANHO_BLOCO, arquivoHash);
                 
-                break;
+                return pos;
             }
         }
         
         // Se não achou nenhum espaço livre no bloco j, pula para o próximo bloco do bucket.
-        if (achouEspacoLivre == 0) {
-            fseek(arquivoHash, TAMANHO_BLOCO, SEEK_CUR);
-        }
-        else{
-            break;
-        }
+        fseek(arquivoHash, TAMANHO_BLOCO, SEEK_CUR);
     }
     
     // Se não achou nenhum espaço livre no bucket i, pula para o próximo bucket.
     if (achouEspacoLivre == 0) {
-//        if (chave == aux-1) {
-//            printf("Disco cheio, nao foi possivel inserir artigo!");
-//        }
-//        else{
-//            inserirArtigo((chave+1) % NUMERO_BUCKETS, artigo);
-//        }
-    
         // tratar o que fazer quando o bucket esta cheio.
         cout << "NAO FOI POSSIVEL INSERIR O REGISTRO: " << artigo.GetId() << ". O BUCKET JA ESTA CHEIO." << endl;
         exit(10);
     }
+    
+    return pos;
 }
 
 Artigo Hash::FindRec(int id) {
@@ -152,7 +145,7 @@ Artigo Hash::FindRec(int id) {
         // Copia os registros do bloco lido para um vetor de artigos.
         memcpy(artigos, bloco, sizeof(Artigo) * REGISTROS_POR_BLOCO);
         
-        // Loop para caminhar nos registros de um bloco e achar um bloco vazio
+        // Loop para caminhar nos registros de um bloco e achar o elemento dentro do bloco
         for (j = 0; j < REGISTROS_POR_BLOCO; j++) {
             
             if (artigos[j].GetId() == chave && artigos[j].GetId() != 0) {
@@ -178,15 +171,44 @@ Artigo Hash::FindRec(int id) {
     // Se não achou nenhum espaço livre no bucket i, pula para o próximo bucket.
     if (achouArtigo == 0) {
         // tratar o que fazer quando o bucket esta cheio.
-        
     }
     
     return art;
 }
 
-int Hash::InserirArtigo (Artigo artigo) {
+Artigo Hash::FindInBlock(long block, int id) {
+    Artigo art;
+    
+    void *bloco = NULL;
+    bloco = malloc(TAMANHO_BLOCO);
+    memset(bloco, 0, TAMANHO_BLOCO);
+    
+    // posiciona no bloco desejado
+    fseek(arquivoHash, block, SEEK_SET);
+    
+    // Lê o primeiro bloco do bucket.
+    fread(bloco, 1, TAMANHO_BLOCO, arquivoHash);
+    
+    // Vetor de artigos para armazenar os registros lidos em 1 bloco.
+    Artigo artigos[REGISTROS_POR_BLOCO];
+    
+    // Copia os registros do bloco lido para um vetor de artigos.
+    memcpy(artigos, bloco, sizeof(Artigo) * REGISTROS_POR_BLOCO);
+    
+    // Loop para caminhar nos registros de um bloco e achar um bloco vazio
+    for (int j = 0; j < REGISTROS_POR_BLOCO; j++) {
+        if (artigos[j].GetId() == id && artigos[j].GetId() != 0) {
+            return artigos[j];
+        }
+    }
+    
+    return art;
+}
+
+long Hash::InserirArtigo (Artigo artigo) {
     int chave = calculaChave(artigo.GetId());
-    inserirArtigo(chave, artigo);
+    
+    return inserirArtigo(chave, artigo);
     
     return chave;
 }
