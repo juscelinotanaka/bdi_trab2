@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F9203BA81E28942000A5C59D /* Artigo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9203BA41E28942000A5C59D /* Artigo.cpp */; };
+		F9203BA91E28942000A5C59D /* Hash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9203BA61E28942000A5C59D /* Hash.cpp */; };
 		F98798541E0203A20007628C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F98798531E0203A20007628C /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +25,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F9203BA41E28942000A5C59D /* Artigo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Artigo.cpp; sourceTree = "<group>"; };
+		F9203BA51E28942000A5C59D /* Artigo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Artigo.hpp; sourceTree = "<group>"; };
+		F9203BA61E28942000A5C59D /* Hash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hash.cpp; sourceTree = "<group>"; };
+		F9203BA71E28942000A5C59D /* Hash.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Hash.hpp; sourceTree = "<group>"; };
 		F93F7BA61E020F07008C5B54 /* input.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input.csv; sourceTree = "<group>"; };
 		F98798501E0203A20007628C /* TP2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TP2; sourceTree = BUILT_PRODUCTS_DIR; };
 		F98798531E0203A20007628C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -60,6 +66,10 @@
 			children = (
 				F93F7BA61E020F07008C5B54 /* input.csv */,
 				F98798531E0203A20007628C /* main.cpp */,
+				F9203BA41E28942000A5C59D /* Artigo.cpp */,
+				F9203BA51E28942000A5C59D /* Artigo.hpp */,
+				F9203BA61E28942000A5C59D /* Hash.cpp */,
+				F9203BA71E28942000A5C59D /* Hash.hpp */,
 			);
 			path = TP2;
 			sourceTree = "<group>";
@@ -121,7 +131,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9203BA91E28942000A5C59D /* Hash.cpp in Sources */,
 				F98798541E0203A20007628C /* main.cpp in Sources */,
+				F9203BA81E28942000A5C59D /* Artigo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

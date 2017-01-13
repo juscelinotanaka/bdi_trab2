@@ -47,7 +47,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/jtanaka/Documents/UFAM/2016_02/BD/TP2/TP2/TP2"
+      customWorkingDirectory = "/Users/jtanaka/Documents/UFAM/2016_02/BD/TP2/bdi_trab2/TP2"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -65,11 +65,11 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "upload"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "input.csv"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "findrec"
