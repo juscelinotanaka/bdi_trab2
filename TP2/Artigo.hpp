@@ -2,8 +2,8 @@
 //  Artigo.hpp
 //  TP2
 //
-//  Created by Juscelino Tanaka on 16/12/16.
-//  Copyright © 2016 Juscelino Tanaka. All rights reserved.
+//  Created by Ivo Stinghen on 16/12/16.
+//  Copyright © 2016 Ivo Stinghen. All rights reserved.
 //
 
 #ifndef Artigo_hpp
