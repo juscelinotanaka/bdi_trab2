@@ -2,8 +2,8 @@
 //  main.cpp
 //  TP2
 //
-//  Created by Juscelino Tanaka on 14/12/16.
-//  Copyright © 2016 Juscelino Tanaka. All rights reserved.
+//  Created by Juscelino Tanaka & Ivo Stinghen on 14/12/16.
+//  Copyright © 2016 Juscelino Tanaka & Ivo Stinghen. All rights reserved.
 //
 
 #include <iostream>
